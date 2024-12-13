@@ -24,7 +24,7 @@ public class NumberSchema extends BaseSchema<Integer> {
 
     private boolean checkPositive() {
         if (positiveCondition) {
-            return checkRequired() && obj > 0;
+            return Objects.nonNull(obj) && obj > 0;
         } else {
             return true;
         }
