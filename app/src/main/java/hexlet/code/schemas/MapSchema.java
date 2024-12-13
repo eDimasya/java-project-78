@@ -47,6 +47,11 @@ public class MapSchema extends BaseSchema<Map> {
         return true;
     }
 
+    public MapSchema required() {
+        super.required();
+        return this;
+    }
+
     public boolean isValid(Map map) {
         return super.isValid(map) && checkSize() && checkSchemas();
     }

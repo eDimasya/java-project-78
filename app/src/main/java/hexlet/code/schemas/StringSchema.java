@@ -19,6 +19,11 @@ public class StringSchema extends BaseSchema<String> {
         return this;
     }
 
+    public StringSchema reqired() {
+        super.required();
+        return this;
+    }
+
     private boolean checkMinLength() {
         if (Objects.isNull(minLengthCondition)) {
             return true;
@@ -60,7 +65,7 @@ public class StringSchema extends BaseSchema<String> {
     }
 
     public boolean isValid(String valid) {
-        return super.isValid(valid) && (!super.required || StringUtils.isNotEmpty(valid))
+        return super.isValid(valid) && (!super.isRequired || StringUtils.isNotEmpty(valid))
                 && checkLength() && checkContains();
     }
 }
