@@ -1,66 +1,72 @@
 package hexlet.code.schemas;
 
+import lombok.NoArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 
-public class StringSchema {
+import java.util.Objects;
 
-    public StringSchema() {
+@NoArgsConstructor
+public class StringSchema extends BaseSchema<String> {
 
-    }
-
-    private String containsCondition = null;
-    private boolean requiredCondition = false;
-    private int minLengthCondition = -1;
-    private int maxLengthCondition = -1;
-    private String validatedCondition = null;
-
-    public StringSchema required() {
-        this.requiredCondition = true;
-        return this;
-    }
-
-    private boolean checkRequired() {
-        if (requiredCondition) {
-            return (StringUtils.isNoneEmpty(validatedCondition));
-        } else {
-            return true;
-        }
-    }
+    private String contains = null;
+    private Integer minLength = null;
+    private Integer maxLength = null;
 
     public StringSchema minLength(int minLength) {
-        this.minLengthCondition = minLength;
+        if (minLength >= 0) {
+            this.minLength = minLength;
+        }
         return this;
     }
 
     private boolean checkMinLength() {
-        return StringUtils.length(validatedCondition) >= minLengthCondition;
+        if (Objects.isNull(minLength)) {
+            return true;
+        } else {
+            return StringUtils.length(obj) >= minLength;
+        }
     }
 
     public StringSchema maxLength(int maxLength) {
-        this.maxLengthCondition = maxLength;
+        if (maxLength > 0) {
+            this.maxLength = maxLength;
+        }
         return this;
     }
 
     private boolean checkMaxLength() {
-        return maxLengthCondition < 0 || StringUtils.length(validatedCondition) <= maxLengthCondition;
+        if (Objects.isNull(maxLength)) {
+            return true;
+        } else {
+            return StringUtils.length(obj) <= maxLength;
+        }
+    }
+
+    private boolean checkLength() {
+        return checkMinLength() && checkMaxLength();
     }
 
     public StringSchema contains(String contains) {
-        this.containsCondition = contains;
+        this.contains = contains;
         return this;
     }
 
     private boolean checkContains() {
-        if (StringUtils.isEmpty(containsCondition)) {
+        if (StringUtils.isEmpty(contains)) {
             return true;
         } else {
-            return StringUtils.contains(validatedCondition, containsCondition);
+            return StringUtils.contains(obj, contains);
         }
     }
 
-    public boolean isValid(String validated) {
-        this.validatedCondition = validated;
-        return checkRequired() & checkMinLength() & checkMaxLength() & checkContains();
+    public StringSchema required() {
+        super.required();
+        return this;
+    }
+
+    public boolean isValid(String valid) {
+        return super.isValid(valid) && (!super.required || StringUtils.isNotEmpty(valid))
+                && checkLength() && checkContains();
     }
 
 }
