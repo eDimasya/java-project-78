@@ -59,14 +59,8 @@ public class StringSchema extends BaseSchema<String> {
         }
     }
 
-    public StringSchema required() {
-        super.required();
-        return this;
-    }
-
     public boolean isValid(String valid) {
         return super.isValid(valid) && (!super.required || StringUtils.isNotEmpty(valid))
                 && checkLength() && checkContains();
     }
-
 }

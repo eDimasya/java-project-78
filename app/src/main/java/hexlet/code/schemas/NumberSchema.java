@@ -21,11 +21,6 @@ public class NumberSchema extends BaseSchema<Integer> {
         return !positiveCondition || obj > 0;
     }
 
-    public NumberSchema required() {
-        super.required();
-        return this;
-    }
-
     public NumberSchema range(@NonNull Integer min, @NonNull Integer max) {
         if (min < max) {
             this.minRangeCondition = min;

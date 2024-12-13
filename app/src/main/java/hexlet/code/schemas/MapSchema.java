@@ -11,7 +11,7 @@ import java.util.Objects;
 @NoArgsConstructor
 public class MapSchema extends BaseSchema<Map> {
     private Integer sizeCondition = null;
-    private Map<String, BaseSchema> schemas = new HashMap<>();
+    private Map<String, BaseSchema<String>> schemas = new HashMap<>();
 
     public MapSchema sizeof(int size) {
         this.sizeCondition = size;
@@ -30,20 +30,23 @@ public class MapSchema extends BaseSchema<Map> {
         }
     }
 
-    public MapSchema shape(Map<String, BaseSchema> schema) {
+    public MapSchema shape(Map<String, BaseSchema<String>> schema) {
         this.schemas = schema;
         return this;
     }
 
     private boolean checkSchemas() {
-        if (schemas.isEmpty()) {
-            return true;
-        } else {
-            List<Boolean> results = new ArrayList<>();
-            schemas.forEach((key, baseSchema) ->
-                    results.add(baseSchema.isValid(obj.get(key))));
-            return !results.contains(false);
+        if (!schemas.isEmpty()) {
+            for (Map.Entry<String, BaseSchema<String>> schemaEntry : schemas.entrySet()) {
+                if (obj.containsKey(schemaEntry.getKey())) {
+                    if (!schemaEntry.getValue().isValid(
+                            obj.get(schemaEntry.getKey()).toString())) {
+                        return false;
+                    }
+                }
+            }
         }
+        return true;
     }
 
     public boolean isValid(Map map) {
