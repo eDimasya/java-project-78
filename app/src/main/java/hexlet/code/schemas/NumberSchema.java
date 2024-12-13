@@ -23,8 +23,8 @@ public class NumberSchema extends BaseSchema<Integer> {
     }
 
     private boolean checkPositive() {
-        if (positiveCondition) {
-            return Objects.nonNull(obj) && obj > 0;
+        if (positiveCondition && Objects.nonNull(obj)) {
+            return obj > 0;
         } else {
             return true;
         }
