@@ -23,7 +23,11 @@ public class NumberSchema extends BaseSchema<Integer> {
     }
 
     private boolean checkPositive() {
-        return !positiveCondition || obj > 0;
+        if (positiveCondition) {
+            return checkRequired() && obj > 0;
+        } else {
+            return true;
+        }
     }
 
     public NumberSchema range(@NonNull Integer min, @NonNull Integer max) {
