@@ -8,10 +8,23 @@ import java.util.Objects;
 @NoArgsConstructor
 public class StringSchema extends BaseSchema<String> {
 
+    /**
+     * contains
+     */
     private String containsCondition = null;
+    /**
+     * min length
+     */
     private Integer minLengthCondition = null;
+    /**
+     * max length
+     */
     private Integer maxLengthCondition = null;
 
+    /**
+     * @param minLength min
+     * @return this
+     */
     public StringSchema minLength(int minLength) {
         if (minLength >= 0) {
             this.minLengthCondition = minLength;
@@ -19,11 +32,17 @@ public class StringSchema extends BaseSchema<String> {
         return this;
     }
 
+    /**
+     * @return required
+     */
     public StringSchema required() {
         super.required();
         return this;
     }
 
+    /**
+     * @return min
+     */
     private boolean checkMinLength() {
         if (Objects.isNull(minLengthCondition)) {
             return true;
@@ -32,6 +51,10 @@ public class StringSchema extends BaseSchema<String> {
         }
     }
 
+    /**
+     * @param maxLength max
+     * @return this
+     */
     public StringSchema maxLength(int maxLength) {
         if (maxLength > 0) {
             this.maxLengthCondition = maxLength;
@@ -39,6 +62,9 @@ public class StringSchema extends BaseSchema<String> {
         return this;
     }
 
+    /**
+     * @return max
+     */
     private boolean checkMaxLength() {
         if (Objects.isNull(maxLengthCondition)) {
             return true;
@@ -47,15 +73,25 @@ public class StringSchema extends BaseSchema<String> {
         }
     }
 
+    /**
+     * @return length
+     */
     private boolean checkLength() {
         return checkMinLength() && checkMaxLength();
     }
 
+    /**
+     * @param contains str
+     * @return this
+     */
     public StringSchema contains(String contains) {
         this.containsCondition = contains;
         return this;
     }
 
+    /**
+     * @return contains
+     */
     private boolean checkContains() {
         if (StringUtils.isEmpty(containsCondition)) {
             return true;
@@ -64,6 +100,10 @@ public class StringSchema extends BaseSchema<String> {
         }
     }
 
+    /**
+     * @param valid str
+     * @return valid
+     */
     public boolean isValid(String valid) {
         return super.isValid(valid) && (!super.isRequired || StringUtils.isNotEmpty(valid))
                 && checkLength() && checkContains();
