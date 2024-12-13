@@ -8,17 +8,17 @@ import java.util.Objects;
 @NoArgsConstructor
 public class NumberSchema extends BaseSchema<Integer> {
 
-    private boolean positive = false;
-    private Integer minRange = null;
-    private Integer maxRange = null;
+    private boolean positiveCondition = false;
+    private Integer minRangeCondition = null;
+    private Integer maxRangeCondition = null;
 
     public NumberSchema positive() {
-        this.positive = true;
+        this.positiveCondition = true;
         return this;
     }
 
     private boolean checkPositive() {
-        return !positive || obj > 0;
+        return !positiveCondition || obj > 0;
     }
 
     public NumberSchema required() {
@@ -28,8 +28,8 @@ public class NumberSchema extends BaseSchema<Integer> {
 
     public NumberSchema range(@NonNull Integer min, @NonNull Integer max) {
         if (min < max) {
-            this.minRange = min;
-            this.maxRange = max;
+            this.minRangeCondition = min;
+            this.maxRangeCondition = max;
         } else {
             throw new RuntimeException("Invalid range");
         }
@@ -37,8 +37,8 @@ public class NumberSchema extends BaseSchema<Integer> {
     }
 
     private boolean checkRange() {
-        if (Objects.nonNull(minRange) && Objects.nonNull(maxRange)) {
-            return obj >= minRange && obj <= maxRange;
+        if (Objects.nonNull(minRangeCondition) && Objects.nonNull(maxRangeCondition)) {
+            return obj >= minRangeCondition && obj <= maxRangeCondition;
         } else {
             return true;
         }

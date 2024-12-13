@@ -8,37 +8,37 @@ import java.util.Objects;
 @NoArgsConstructor
 public class StringSchema extends BaseSchema<String> {
 
-    private String contains = null;
-    private Integer minLength = null;
-    private Integer maxLength = null;
+    private String containsCondition = null;
+    private Integer minLengthCondition = null;
+    private Integer maxLengthCondition = null;
 
     public StringSchema minLength(int minLength) {
         if (minLength >= 0) {
-            this.minLength = minLength;
+            this.minLengthCondition = minLength;
         }
         return this;
     }
 
     private boolean checkMinLength() {
-        if (Objects.isNull(minLength)) {
+        if (Objects.isNull(minLengthCondition)) {
             return true;
         } else {
-            return StringUtils.length(obj) >= minLength;
+            return StringUtils.length(obj) >= minLengthCondition;
         }
     }
 
     public StringSchema maxLength(int maxLength) {
         if (maxLength > 0) {
-            this.maxLength = maxLength;
+            this.maxLengthCondition = maxLength;
         }
         return this;
     }
 
     private boolean checkMaxLength() {
-        if (Objects.isNull(maxLength)) {
+        if (Objects.isNull(maxLengthCondition)) {
             return true;
         } else {
-            return StringUtils.length(obj) <= maxLength;
+            return StringUtils.length(obj) <= maxLengthCondition;
         }
     }
 
@@ -47,15 +47,15 @@ public class StringSchema extends BaseSchema<String> {
     }
 
     public StringSchema contains(String contains) {
-        this.contains = contains;
+        this.containsCondition = contains;
         return this;
     }
 
     private boolean checkContains() {
-        if (StringUtils.isEmpty(contains)) {
+        if (StringUtils.isEmpty(containsCondition)) {
             return true;
         } else {
-            return StringUtils.contains(obj, contains);
+            return StringUtils.contains(obj, containsCondition);
         }
     }
 

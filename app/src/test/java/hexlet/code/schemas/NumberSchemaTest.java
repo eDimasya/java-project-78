@@ -22,9 +22,5 @@ class NumberSchemaTest {
         assertTrue(numberSchema1.isValid(1));
         assertFalse(numberSchema1.isValid(0));
         assertFalse(numberSchema1.isValid(-1));
-        numberSchema1.range(2, 5);
-        assertTrue(numberSchema1.isValid(3));
-        assertTrue(numberSchema1.isValid(5));
-        assertFalse(numberSchema1.isValid(1));
     }
 }

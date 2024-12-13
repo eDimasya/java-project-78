@@ -2,24 +2,28 @@ package hexlet.code.schemas;
 
 import lombok.NoArgsConstructor;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 
 @NoArgsConstructor
 public class MapSchema extends BaseSchema<Map> {
-    private Integer size = null;
+    private Integer sizeCondition = null;
     private Map<String, BaseSchema> schemas = new HashMap<>();
 
     public MapSchema sizeof(int size) {
-        this.size = size;
+        this.sizeCondition = size;
         return this;
     }
 
     private boolean checkSize() {
-        if (Objects.nonNull(size)) {
+        if (Objects.nonNull(sizeCondition)) {
             if (Objects.isNull(obj)) {
                 return false;
             } else {
-                return obj.size() == size;
+                return obj.size() == sizeCondition;
             }
         } else {
             return true;
