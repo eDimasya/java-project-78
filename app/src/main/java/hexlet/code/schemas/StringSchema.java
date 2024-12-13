@@ -19,7 +19,7 @@ public class StringSchema extends BaseSchema<String> {
         return this;
     }
 
-    public StringSchema reqired() {
+    public StringSchema required() {
         super.required();
         return this;
     }
