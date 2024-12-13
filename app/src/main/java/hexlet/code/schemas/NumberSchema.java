@@ -9,20 +9,20 @@ import java.util.Objects;
 public class NumberSchema extends BaseSchema<Integer> {
 
     /**
-     * positive
+     * positive.
      */
     private boolean positiveCondition = false;
     /**
-     * min Range
+     * min Range.
      */
     private Integer minRangeCondition = null;
     /**
-     * max Range
+     * max Range.
      */
     private Integer maxRangeCondition = null;
 
     /**
-     * @return positive
+     * @return positive.
      */
     public NumberSchema positive() {
         this.positiveCondition = true;
@@ -30,7 +30,7 @@ public class NumberSchema extends BaseSchema<Integer> {
     }
 
     /**
-     * @return required
+     * @return required.
      */
     public NumberSchema required() {
         super.required();
@@ -38,7 +38,7 @@ public class NumberSchema extends BaseSchema<Integer> {
     }
 
     /**
-     * @return positive
+     * @return positive.
      */
     private boolean checkPositive() {
         if (positiveCondition && Objects.nonNull(obj)) {
@@ -49,9 +49,9 @@ public class NumberSchema extends BaseSchema<Integer> {
     }
 
     /**
-     * @param min min
-     * @param max max
-     * @return range
+     * @param min min.
+     * @param max max.
+     * @return range.
      */
     public NumberSchema range(@NonNull Integer min, @NonNull Integer max) {
         if (min < max) {
@@ -64,7 +64,7 @@ public class NumberSchema extends BaseSchema<Integer> {
     }
 
     /**
-     * @return check range
+     * @return check range.
      */
     private boolean checkRange() {
         if (Objects.nonNull(minRangeCondition) && Objects.nonNull(maxRangeCondition)) {
@@ -75,8 +75,8 @@ public class NumberSchema extends BaseSchema<Integer> {
     }
 
     /**
-     * @param valid num
-     * @return valid
+     * @param valid num.
+     * @return valid.
      */
     public boolean isValid(Integer valid) {
         return super.isValid(valid) && checkPositive() && checkRange();

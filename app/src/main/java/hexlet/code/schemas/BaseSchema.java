@@ -7,16 +7,16 @@ import java.util.Objects;
 @NoArgsConstructor
 public class BaseSchema<T> {
     /**
-     * obj
+     * obj.
      */
     protected T obj = null;
     /**
-     * required
+     * required.
      */
     protected boolean isRequired = false;
 
     /**
-     * @return required
+     * @return required.
      */
     public BaseSchema<T> required() {
         this.isRequired = true;
@@ -24,15 +24,15 @@ public class BaseSchema<T> {
     }
 
     /**
-     * @return required
+     * @return required.
      */
     protected boolean checkRequired() {
         return !isRequired || Objects.nonNull(obj);
     }
 
     /**
-     * @param valid obj
-     * @return valid
+     * @param valid obj.
+     * @return valid.
      */
     protected boolean isValid(T valid) {
         this.obj = valid;

@@ -9,18 +9,18 @@ import java.util.Objects;
 @NoArgsConstructor
 public class MapSchema extends BaseSchema<Map> {
     /**
-     * Size
+     * Size.
      */
     private Integer sizeCondition = null;
     /**
-     * Schemas
+     * Schemas.
      */
     private Map<String, BaseSchema<String>> schemas = new HashMap<>();
 
 
     /**
-     * @param size size of Map
-     * @return this
+     * @param size size of Map.
+     * @return this.
      */
     public MapSchema sizeof(int size) {
         this.sizeCondition = size;
@@ -28,7 +28,7 @@ public class MapSchema extends BaseSchema<Map> {
     }
 
     /**
-     * @return check size of map
+     * @return check size of map.
      */
     private boolean checkSize() {
         if (Objects.nonNull(sizeCondition)) {
@@ -43,8 +43,8 @@ public class MapSchema extends BaseSchema<Map> {
     }
 
     /**
-     * @param schema schemas
-     * @return this
+     * @param schema schemas.
+     * @return this.
      */
     public MapSchema shape(Map<String, BaseSchema<String>> schema) {
         this.schemas = schema;
@@ -52,7 +52,7 @@ public class MapSchema extends BaseSchema<Map> {
     }
 
     /**
-     * @return schemas check
+     * @return schemas check.
      */
     private boolean checkSchemas() {
         if (!schemas.isEmpty()) {
@@ -69,7 +69,7 @@ public class MapSchema extends BaseSchema<Map> {
     }
 
     /**
-     * @return required
+     * @return required.
      */
     public MapSchema required() {
         super.required();
@@ -77,8 +77,8 @@ public class MapSchema extends BaseSchema<Map> {
     }
 
     /**
-     * @param map map
-     * @return validation
+     * @param map map.
+     * @return validation.
      */
     public boolean isValid(Map map) {
         return super.isValid(map) && checkSize() && checkSchemas();
